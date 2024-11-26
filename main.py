@@ -19,3 +19,10 @@ def PesquisaStorage(CaminhaPrincipal, CaminhoSimilar, CaminhoProcessados):
 
         # Seleciona a primeira imagem como referencia
         arquivo_referencia = arquivos[0]
+        caminho_referencia = os.path.join(CaminhaPrincipal, arquivo_referencia)
+
+        print(f'Processando referencia {arquivo_referencia}.')
+
+        for arquivo in arquivos[1:]:
+            caminho_arquivo = os.path.join(CaminhaPrincipal, arquivo)
+            
