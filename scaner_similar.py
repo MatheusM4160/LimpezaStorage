@@ -1,21 +1,26 @@
-def ScanerSmilar(Image1, Imagem2):
-    import cv2
-    import numpy as np
+def ResizeImagePil(Img, new_width, new_height):
     from PIL import Image
+    import numpy as np
+    pil_image = Image.fromarray(Img)
+    resized_image = pil_image.resize((new_width, new_height))
+    return np.array(resized_image)
 
+
+def ScanerSimilar(Image1, Image2, Diretorio1, Diretorio2):
+    import numpy as np
+    import os
+    import imageio.v3 as iio
+    
+
+    Imagem1 = os.path.join(Diretorio1, Image1)
+    Imagem2 = os.path.join(Diretorio2, Image2)
+    
     # Carregar imagens com PIL para pegar os tamanhos
-    tamanho_img1 = Image.open(Image1)
-    width1, height1 = tamanho_img1.size
+    img1 = iio.imread(Imagem1, mode="L")  # Imagem 1 em escala de cinza
+    height1, width1 = img1.shape
 
-    # Carregar as mesmas imagens com OpenCV para pegar a matriz em escala de cinza
-    img1 = cv2.imread(Image1, cv2.IMREAD_GRAYSCALE)
-
-    # Carregar imagem 2 com PIL para pegar os tamanhos
-    tamanho_img2 = Image.open(Imagem2)
-    width2, height2 = tamanho_img2.size
-
-    # Carregar imagem 2 com OpenCV para pegar com a matriz em escala de cinza
-    img2 = cv2.imread(Imagem2, cv2.IMREAD_GRAYSCALE)
+    img2 = iio.imread(Imagem2, mode="L")  # Imagem 2 em escala de cinza
+    height2, width2 = img2.shape
 
     print(f"Imagem 1 - Largura: {width1}px, Altura: {height1}px")
     print(f"Imagem 2 - Largura: {width2}px, Altura: {height2}px")
@@ -31,7 +36,7 @@ def ScanerSmilar(Image1, Imagem2):
         # Redimensionar imagem 2 para ter a mesma altura da imagem 1, mantendo proporção
         if width2 > height2:
             novo_width = int((width2 * height1) / height2)
-            redirencionamento = cv2.resize(img2, (novo_width, height1))
+            redirencionamento = ResizeImagePil(img2, novo_width, height1)
             print(f"Redimensionada: Largura: {novo_width}px, Altura: {height1}px")
 
             redirencionamento = np.array(redirencionamento)
@@ -53,8 +58,10 @@ def ScanerSmilar(Image1, Imagem2):
 
             if best_match_score >= 75:
                 print(f'Match encontrado! As imagens são semelhantes em {best_match_score:.2f}% na posição {best_match}')
+                return 'Semelhantes'
             else:
                 print(f'Nenhum match superior a 75% encontrado. {best_match_score:.2f}%')
+                return 'Diferentes'
 
         # Redimensionar imagem 2 para ter a mesma largura da imagem 1, mantendo proporção
         elif width2 < height2:
@@ -81,8 +88,10 @@ def ScanerSmilar(Image1, Imagem2):
 
             if best_match_score >= 75:
                 print(f'Match encontrado! As imagens são semelhantes em {best_match_score:.2f}% na posição {best_match}')
+                return 'Semelhantes'
             else:
                 print(f'Nenhum match superior a 75% encontrado. {best_match_score:.2f}%')
+                return 'Diferentes'
 
         # Caso a imagem seja quadrada
         else:
@@ -104,8 +113,10 @@ def ScanerSmilar(Image1, Imagem2):
 
             if percentual_semelhante >= 75:
                 print(f'As imagens são Semelhantes em {percentual_semelhante}%')
+                return 'Semelhantes'
             else:
                 print('As imagens não são semelhantes em mais ou igual a 75%')
+                return 'Diferentes'
 
         
 
@@ -138,8 +149,10 @@ def ScanerSmilar(Image1, Imagem2):
 
             if best_match_score >= 75:
                 print(f'Match encontrado! As imagens são semelhantes em {best_match_score:.2f}% na posição {best_match}')
+                return 'Semelhantes'
             else:
                 print(f'Nenhum match superior a 75% encontrado. {best_match_score:.2f}%')
+                return 'Diferentes'
 
         # Redimensionar imagem 2 para ter a mesma largura da imagem 1, mantendo proporção
         elif width2 < height2:
@@ -166,8 +179,10 @@ def ScanerSmilar(Image1, Imagem2):
 
             if best_match_score >= 75:
                 print(f'Match encontrado! As imagens são semelhantes em {best_match_score:.2f}% na posição {best_match}')
+                return 'Semelhantes'
             else:
                 print(f'Nenhum match superior a 75% encontrado. {best_match_score:.2f}%')
+                return 'Diferentes'
 
         # Caso a imagem seja quadrada
         else:
@@ -189,8 +204,10 @@ def ScanerSmilar(Image1, Imagem2):
 
             if percentual_semelhante >= 75:
                 print(f'As imagens são Semelhantes em {percentual_semelhante}%')
+                return 'Semelhantes'
             else:
                 print('As imagens não são semelhantes em mais ou igual a 75%')
+                return 'Diferentes'
 
 
 
@@ -204,5 +221,7 @@ def ScanerSmilar(Image1, Imagem2):
 
         if percentual_semelhante >= 75:
             print(f'As imagens são Semelhantes em {percentual_semelhante}%')
+            return 'Semelhantes'
         else:
             print('As imagens não são semelhantes em mais ou igual a 75%')
+            return 'Diferentes'
