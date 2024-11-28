@@ -24,7 +24,7 @@ def PesquisaStorage(CaminhaPrincipal, CaminhoSimilar, CaminhoProcessados):
         for arquivo in arquivos[1:]:
             caminho_arquivo = os.path.join(CaminhaPrincipal, arquivo)
 
-            resultado = scaner_similar.ScanerSimilar(Diretorio1=caminho_referencia, Diretorio2=caminho_arquivo, Image1=arquivo_referencia, Image2=arquivo)
+            resultado = scaner_similar.ScanerSimilar(Diretorio1=caminho_referencia, Diretorio2=caminho_arquivo)
 
             # Verifica se o conteudo de resultado é 'Semelhante' ou 'Difetente'
             if resultado == 'Semelhantes':

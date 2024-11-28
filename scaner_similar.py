@@ -6,7 +6,7 @@ def ResizeImagePil(Img, new_width, new_height):
     return np.array(resized_image)
 
 
-def ScanerSimilar(Image1, Image2, Diretorio1, Diretorio2):
+def ScanerSimilar(Diretorio1, Diretorio2):
     import numpy as np
     import os
     import imageio.v3 as iio
@@ -31,12 +31,8 @@ def ScanerSimilar(Image1, Image2, Diretorio1, Diretorio2):
     print(f"Imagem 1 - Largura: {width1}px, Altura: {height1}px")
     print(f"Imagem 2 - Largura: {width2}px, Altura: {height2}px")
 
-    # Pegar a area de cada imagem
-    area_img1 = width1 * height1
-    area_img2 = width2 * height2
-
     # Caso as imagens tenham o mesmo tamanho
-    if area_img1 == area_img2:
+    if (width1, height1) == (width2, height2):
         print('As imagens têm o mesmo tamanho')
         total_elementos = img1.size
         
