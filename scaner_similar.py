@@ -8,7 +8,6 @@ def ResizeImagePil(Img, new_width, new_height):
 
 def ScanerSimilar(Diretorio1, Diretorio2):
     import numpy as np
-    import os
     import imageio.v3 as iio
     
 
