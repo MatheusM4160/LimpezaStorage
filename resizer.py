@@ -11,10 +11,16 @@ def create_thumbnail(filename:str,path_dest:str,size:tuple=(640,640)) -> None:
 
 
     """
-    __,n = split(filename)
-    new = f"bolsinha__{n.replace('tif','bmp')}"
-    new_name = join(path_dest,new)
-    with Image.open(filename) as im:
-        print(f"{new_name}")
-        im.thumbnail(size)
-        im.save(new_name)
+    try:
+        __,n = split(filename)
+        new = f"bolsinha__{n.replace('tif','bmp')}"
+        new_name = join(path_dest,new)
+        with Image.open(filename) as im:
+            print(f"{new_name}")
+            if im.mode != 'RGB':
+                    im = im.convert('RGB')
+            im.thumbnail(size)
+            im.save(new_name)
+            return new_name
+    except:
+         pass
