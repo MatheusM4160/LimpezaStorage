@@ -1,34 +1,35 @@
-import os
-import json
-import functools
+def mape(diretorio):
+    import os
+    import json
+    import functools
 
-lista = []
+    lista = []
 
-with open('armazenamento.json', 'r') as file:
-    try:
-        lista = json.load(file)
-    except json.JSONDecodeError:
-        lista = []
+    with open('armazenamento.json', 'r') as file:
+        try:
+            lista = json.load(file)
+        except json.JSONDecodeError:
+            lista = []
 
-@functools.lru_cache()
-def mapear(diretorio):
-    for raiz, _, arquivos, in os.walk(diretorio):
-        for arquivo in os.listdir(raiz):
-            if '.' in arquivo:  
-                print(arquivo)
-                caminho_referencia = os.path.join(raiz, arquivo)
+    @functools.lru_cache()
+    def mapear(path):
+        for raiz, _, arquivos, in os.walk(path):
+            for arquivo in os.listdir(raiz):
+                if '.' in arquivo:  
+                    print(arquivo)
+                    caminho_referencia = os.path.join(raiz, arquivo)
 
-                print(caminho_referencia) 
-                dic = {
-                    'Nome Arquivo': arquivo,
-                    'Diretorio Arquivo': caminho_referencia
-                    }
-                lista.append(dic)
-                #dic.clear()
+                    print(caminho_referencia) 
+                    dic = {
+                        'Nome Arquivo': arquivo,
+                        'Diretorio Arquivo': caminho_referencia,
+                        'Diretorio Miniatura': None,
+                        'Novo Diretorio': None
+                        }
+                    lista.append(dic)
+    caminho = diretorio
+    mapear(caminho)
 
-diretorio = input('Caminho: ')
-mapear(diretorio)
-
-print(lista)
-with open('armazenamento.json', 'w') as file:
-    json.dump(lista, file, indent=4)
+    print(lista)
+    with open('armazenamento.json', 'w') as file:
+        json.dump(lista, file, indent=4)

@@ -12,6 +12,7 @@ def create_thumbnail(filename:str,path_dest:str,size:tuple=(640,640)) -> None:
 
     """
     try:
+        Image.MAX_IMAGE_PIXELS = None
         __,n = split(filename)
         new = f"bolsinha__{n.replace('tif','bmp')}"
         new_name = join(path_dest,new)
@@ -19,7 +20,7 @@ def create_thumbnail(filename:str,path_dest:str,size:tuple=(640,640)) -> None:
             print(f"{new_name}")
             if im.mode != 'RGB':
                     im = im.convert('RGB')
-            im.thumbnail(size)
+            im = im.resize(size, Image.Resampling.LANCZOS)
             im.save(new_name)
             return new_name
     except:
