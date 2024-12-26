@@ -21,7 +21,7 @@ def mapear():
                 except:
                     continue
                 else:
-                    if similarity > 82:
+                    if identical == True:
                         shutil.move(os.path.join(y['Diretorio Miniatura']), os.path.join('W:/MATHEUS PAINIES SUBLIMAÇÃO 2024/MATHEUS/similares'))
                         __,n = os.path.split(y['Diretorio Arquivo'])
                         y['Novo Diretorio'] = 'W:/MATHEUS PAINIES SUBLIMAÇÃO 2024/MATHEUS/similares' + f'/{n.replace('tif','bmp')}'
