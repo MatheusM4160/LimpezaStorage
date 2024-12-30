@@ -28,5 +28,11 @@ def mapear():
                         print(f'Imagem {x['Nome Arquivo']} é igual a imagem {y['Nome Arquivo']}!')
                     else:
                         print('Imagens diferentes!')
+                        
+        with open('armazenamento.json', 'w') as file:
+            json.dump(lista, file, indent=4)
 
 mapear()
+
+with open('armazenamento.json', 'w') as file:
+    json.dump(lista, file, indent=4)
